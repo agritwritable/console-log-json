@@ -302,7 +302,12 @@ export function LoggerAdaptToConsole(options?: { logLevel?: LOG_LEVEL; debugStri
 
   // log package name
   packageName = '';
-  const jsonPackage = require(path.join(appRootPath.toString(), 'package.json'));
+  let jsonPackage;
+  try {
+    jsonPackage = require(path.join(appRootPath.toString(), 'package.json'));
+  } catch (error) {
+    jsonPackage = null;
+  }
   packageName = jsonPackage?.name || '';
 
   Logger.level = logParams.logLevel;
